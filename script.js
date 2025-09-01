@@ -3,7 +3,6 @@ const getSumBtn = document.createElement("button");
         document.body.appendChild(getSumBtn);
 
         const getSum = () => {
-            // select all price cells
             const prices = document.querySelectorAll(".price");
             let total = 0;
 
