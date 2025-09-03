@@ -1,58 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Grocery List</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery List with Total</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        td.prices {
+            text-align: right;
+        }
+        .total-row {
+            font-weight: bold;
+            background-color: #e0ffe0;
+        }
+    </style>
 </head>
 <body>
-  <table border="1">
-    <tr>
-      <th>Item</th>
-      <th>Price</th>
-    </tr>
-    <tr>
-      <td class="item">Apples</td>
-      <td class="prices">50</td>
-    </tr>
-    <tr>
-      <td class="item">Bananas</td>
-      <td class="prices">30</td>
-    </tr>
-    <tr>
-      <td class="item">Milk</td>
-      <td class="prices">40</td>
-    </tr>
-  </table>
+    <h1>Grocery List</h1>
+    <table id="groceryTable">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="item">Bananas</td>
+                <td class="prices">$3.49</td>
+            </tr>
+            <tr>
+                <td class="item">Milk</td>
+                <td class="prices">$2.99</td>
+            </tr>
+            <tr>
+                <td class="item">Bread</td>
+                <td class="prices">$4.50</td>
+            </tr>
+            <tr>
+                <td class="item">Apples</td>
+                <td class="prices">$5.20</td>
+            </tr>
+            <tr>
+                <td class="item">Cheese</td>
+                <td class="prices">$6.75</td>
+            </tr>
+        </tbody>
+    </table>
 
-  <script>
-    // Create button
-    const getSumBtn = document.createElement("button");
-    getSumBtn.append("Get Total Price");
-    document.body.appendChild(getSumBtn);
+    <script>
+        function calculateTotal() {
+            // Get all price elements
+            const priceElements = document.querySelectorAll('.prices');
+            let total = 0;
 
-    // Function to calculate and display total
-    const getSum = () => {
-      const prices = document.querySelectorAll(".prices");
-      let total = 0;
+            // Sum up the prices
+            priceElements.forEach(element => {
+                // Remove the $ sign and parse as float
+                const price = parseFloat(element.textContent.replace('$', ''));
+                if (!isNaN(price)) {
+                    total += price;
+                }
+            });
 
-      prices.forEach(cell => {
-        total += parseInt(cell.textContent);
-      });
+            // Create a new row for the total
+            const table = document.getElementById('groceryTable');
+            const tbody = table.querySelector('tbody');
+            const totalRow = document.createElement('tr');
+            totalRow.classList.add('total-row');
 
-      // Create new row for total
-      const table = document.querySelector("table");
-      const newRow = document.createElement("tr");
-      const totalCell = document.createElement("td");
+            // Create cells: one for "Total" and one for the price
+            const itemCell = document.createElement('td');
+            itemCell.textContent = 'Total';
 
-      totalCell.setAttribute("colspan", "2");
-      totalCell.textContent = "Total Price: Rs " + total;
+            const priceCell = document.createElement('td');
+            priceCell.classList.add('prices');
+            priceCell.textContent = '$' + total.toFixed(2);
 
-      newRow.appendChild(totalCell);
-      table.appendChild(newRow);
-    };
+            // Append cells to the row
+            totalRow.appendChild(itemCell);
+            totalRow.appendChild(priceCell);
 
-    // Add event listener to button
-    getSumBtn.addEventListener("click", getSum);
-  </script>
+            // Append the row to the table body
+            tbody.appendChild(totalRow);
+        }
+
+        // Call the function to calculate and display the total
+        calculateTotal();
+    </script>
 </body>
 </html>
-
+</content>
+</create_file>
