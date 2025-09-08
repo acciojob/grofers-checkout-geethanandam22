@@ -1,113 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grocery List with Total</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f9f9f9;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            background-color: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        td.prices {
-            text-align: right;
-        }
-        .total-row {
-            font-weight: bold;
-            background-color: #e0ffe0;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grofers Checkout</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 50%;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #ff9800;
+      color: white;
+    }
+
+    tr:last-child td {
+      font-weight: bold;
+      background: #f1f1f1;
+    }
+  </style>
 </head>
 <body>
-    <h1>Grocery List</h1>
-    <table id="groceryTable">
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="item">Bananas</td>
-                <td class="prices">$3.49</td>
-            </tr>
-            <tr>
-                <td class="item">Milk</td>
-                <td class="prices">$2.99</td>
-            </tr>
-            <tr>
-                <td class="item">Bread</td>
-                <td class="prices">$4.50</td>
-            </tr>
-            <tr>
-                <td class="item">Apples</td>
-                <td class="prices">$5.20</td>
-            </tr>
-            <tr>
-                <td class="item">Cheese</td>
-                <td class="prices">$6.75</td>
-            </tr>
-        </tbody>
-    </table>
+  <table id="groceryTable">
+    <tr>
+      <th>Item</th>
+      <th>Price</th>
+    </tr>
+    <tr class="item">
+      <td>Apples</td>
+      <td class="prices">50</td>
+    </tr>
+    <tr class="item">
+      <td>Milk</td>
+      <td class="prices">30</td>
+    </tr>
+    <tr class="item">
+      <td>Bread</td>
+      <td class="prices">40</td>
+    </tr>
+    <tr class="item">
+      <td>Rice</td>
+      <td class="prices">100</td>
+    </tr>
+  </table>
 
-    <script>
-        function calculateTotal() {
-            // Get all price elements
-            const priceElements = document.querySelectorAll('.prices');
-            let total = 0;
+  <script>
+    const prices = document.querySelectorAll(".prices");
+    let total = 0;
 
-            // Sum up the prices
-            priceElements.forEach(element => {
-                // Remove the $ sign and parse as float
-                const price = parseFloat(element.textContent.replace('$', ''));
-                if (!isNaN(price)) {
-                    total += price;
-                }
-            });
+    prices.forEach(price => {
+      total += parseFloat(price.innerText);
+    });
 
-            // Create a new row for the total
-            const table = document.getElementById('groceryTable');
-            const tbody = table.querySelector('tbody');
-            const totalRow = document.createElement('tr');
-            totalRow.classList.add('total-row');
+    // Create a new row for total
+    const table = document.getElementById("groceryTable");
+    const totalRow = document.createElement("tr");
+    const totalCell = document.createElement("td");
 
-            // Create cells: one for "Total" and one for the price
-            const itemCell = document.createElement('td');
-            itemCell.textContent = 'Total';
+    totalCell.colSpan = 2; // span across both columns
+    totalCell.innerText = "Total Price: " + total;
 
-            const priceCell = document.createElement('td');
-            priceCell.classList.add('prices');
-            priceCell.textContent = '$' + total.toFixed(2);
-
-            // Append cells to the row
-            totalRow.appendChild(itemCell);
-            totalRow.appendChild(priceCell);
-
-            // Append the row to the table body
-            tbody.appendChild(totalRow);
-        }
-
-        // Call the function to calculate and display the total
-        calculateTotal();
-    </script>
+    totalRow.appendChild(totalCell);
+    table.appendChild(totalRow);
+  </script>
 </body>
 </html>
-</content>
-</create_file>
+
