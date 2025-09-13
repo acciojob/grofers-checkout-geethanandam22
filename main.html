@@ -7,18 +7,18 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f9f9f9;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
+      background: #f9f9f9;
     }
 
     table {
       border-collapse: collapse;
-      width: 50%;
-      background: #fff;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 400px;
+      background: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
 
     th, td {
@@ -28,13 +28,13 @@
     }
 
     th {
-      background-color: #ff9800;
+      background: #ff6f00;
       color: white;
     }
 
-    tr:last-child td {
+    .total-row {
+      background: #eee;
       font-weight: bold;
-      background: #f1f1f1;
     }
   </style>
 </head>
@@ -42,41 +42,42 @@
   <table id="groceryTable">
     <tr>
       <th>Item</th>
-      <th>Price</th>
+      <th>Price (₹)</th>
     </tr>
-    <tr class="item">
-      <td>Apples</td>
+    <tr>
+      <td class="item">Apples</td>
       <td class="prices">50</td>
     </tr>
-    <tr class="item">
-      <td>Milk</td>
+    <tr>
+      <td class="item">Bananas</td>
       <td class="prices">30</td>
     </tr>
-    <tr class="item">
-      <td>Bread</td>
+    <tr>
+      <td class="item">Milk</td>
       <td class="prices">40</td>
     </tr>
-    <tr class="item">
-      <td>Rice</td>
-      <td class="prices">100</td>
+    <tr>
+      <td class="item">Bread</td>
+      <td class="prices">25</td>
     </tr>
   </table>
 
   <script>
-    const prices = document.querySelectorAll(".prices");
+    const prices = document.querySelectorAll(".prices"); // get all prices
     let total = 0;
 
     prices.forEach(price => {
-      total += parseFloat(price.innerText);
+      total += parseFloat(price.textContent); // sum values
     });
 
-    // Create a new row for total
+    // create new row for total
     const table = document.getElementById("groceryTable");
     const totalRow = document.createElement("tr");
-    const totalCell = document.createElement("td");
+    totalRow.classList.add("total-row");
 
+    const totalCell = document.createElement("td");
     totalCell.colSpan = 2; // span across both columns
-    totalCell.innerText = "Total Price: " + total;
+    totalCell.textContent = "Total Price: ₹" + total;
 
     totalRow.appendChild(totalCell);
     table.appendChild(totalRow);
